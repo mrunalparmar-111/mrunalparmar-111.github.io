@@ -189,6 +189,9 @@
   .cred-item .ci-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .cred-item .ci-name{font-weight:600;font-size:.98rem}
   .cred-item .ci-sub{color:var(--text-dim);font-size:.88rem;margin-top:3px}
+  .cred-item .verify{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:12.5px;font-family:'JetBrains Mono',monospace;color:var(--steel-2);padding:7px 12px;border:1px solid var(--border);border-radius:9px;transition:.2s}
+  .cred-item .verify:hover{border-color:var(--border-strong);color:#fff;background:var(--surface-2);transform:translateY(-1px)}
+  .cred-item .verify svg{width:13px;height:13px}
   .badge{font-size:11px;font-family:'JetBrains Mono',monospace;padding:4px 9px;border-radius:7px;white-space:nowrap}
   .badge.done{background:rgba(94,224,160,.12);color:var(--ok);border:1px solid rgba(94,224,160,.3)}
   .badge.prog{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.28)}
@@ -499,6 +502,13 @@
       </div>
       <div class="cred-col reveal">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg> Certifications</h3>
+        <div class="card glare cred-item">
+          <div class="ci-top">
+            <div><div class="ci-name">Introduction to Identity Security Cloud</div><div class="ci-sub">SailPoint · Credential ID gjkor9h3fait</div></div>
+            <span class="badge done">Jun 2026</span>
+          </div>
+          <a class="verify" href="https://verify.skilljar.com/c/gjkor9h3fait" target="_blank" rel="noopener" aria-label="Show SailPoint credential (opens in new tab)">Show credential <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></a>
+        </div>
         <div class="card glare cred-item">
           <div class="ci-top"><div class="ci-name">AWS Certified Cloud Practitioner</div><span class="badge done">Certified</span></div>
         </div>
