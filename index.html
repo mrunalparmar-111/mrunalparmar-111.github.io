@@ -75,13 +75,8 @@
   .menu-btn svg{width:20px;height:20px}
 
   /* ===== HERO ===== */
-  .hero{padding:70px 0 64px;position:relative}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center}
-  .hero-3d{position:relative;height:480px}
-  #scene{position:absolute;inset:0}
-  #scene canvas{display:block;width:100%;height:100%}
-  .hero-3d::before{content:"";position:absolute;inset:8% 6%;border-radius:50%;
-    background:radial-gradient(circle,rgba(180,195,225,.18),transparent 65%);filter:blur(30px);z-index:-1}
+  .hero{padding:84px 0 64px;position:relative}
+  .hero-grid{max-width:760px}
 
   .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--text-dim);margin-bottom:26px;overflow:hidden}
   .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(94,224,160,.16);animation:pulse 2.4s infinite}
@@ -223,10 +218,6 @@
   }
 
   /* responsive */
-  @media (max-width:980px){
-    .hero-grid{grid-template-columns:1fr}
-    .hero-3d{height:320px;order:-1}
-  }
   @media (max-width:880px){
     .navlinks{display:none}
     .navlinks.open{display:flex;position:absolute;top:68px;right:16px;left:16px;flex-direction:column;background:rgba(13,15,20,.98);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:16px;padding:12px}
@@ -242,7 +233,6 @@
     .stats{grid-template-columns:1fr 1fr}
     .focus-grid{grid-template-columns:1fr}
     .stat .num{font-size:1.6rem}
-    .hero-3d{height:260px}
     .btn{flex:1;justify-content:center}
   }
 </style>
@@ -293,7 +283,6 @@
           <a href="mailto:mrunalparmar222@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>
         </div>
       </div>
-      <div class="hero-3d"><div id="scene" aria-hidden="true"></div></div>
     </div>
 
     <div class="stats">
@@ -551,74 +540,6 @@
     </div>
   </div>
 </footer>
-
-<!-- ===== 3D HERO OBJECT (Three.js) ===== -->
-<script type="module">
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mount = document.getElementById('scene');
-  if (mount) (async () => {
-    try {
-      const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
-      const W = () => mount.clientWidth || 1, H = () => mount.clientHeight || 1;
-      const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      renderer.setSize(W(), H());
-      mount.appendChild(renderer.domElement);
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, W()/H(), 0.1, 100);
-      camera.position.z = 4.4;
-
-      // chrome environment (canvas gradient -> equirect -> PMREM)
-      const cv = document.createElement('canvas'); cv.width = 64; cv.height = 256;
-      const g2 = cv.getContext('2d');
-      const grd = g2.createLinearGradient(0,0,0,256);
-      grd.addColorStop(0,'#ffffff'); grd.addColorStop(0.42,'#c2ccdc');
-      grd.addColorStop(0.55,'#5a6478'); grd.addColorStop(0.8,'#1a1d24'); grd.addColorStop(1,'#0a0c10');
-      g2.fillStyle = grd; g2.fillRect(0,0,64,256);
-      g2.fillStyle = 'rgba(150,180,230,0.5)'; g2.fillRect(0,120,64,18);
-      const envTex = new THREE.CanvasTexture(cv);
-      envTex.mapping = THREE.EquirectangularReflectionMapping;
-      const pmrem = new THREE.PMREMGenerator(renderer);
-      const env = pmrem.fromEquirectangular(envTex).texture;
-      scene.environment = env;
-
-      const group = new THREE.Group(); scene.add(group);
-      const mat = new THREE.MeshStandardMaterial({ color:0xdfe6f2, metalness:1, roughness:0.16, envMap:env, flatShading:true });
-      const mesh = new THREE.Mesh(new THREE.IcosahedronGeometry(1.18, 1), mat);
-      group.add(mesh);
-      const wire = new THREE.LineSegments(
-        new THREE.WireframeGeometry(new THREE.IcosahedronGeometry(1.72, 1)),
-        new THREE.LineBasicMaterial({ color:0x9fb3d6, transparent:true, opacity:0.32 })
-      );
-      group.add(wire);
-
-      scene.add(new THREE.AmbientLight(0xffffff, 0.55));
-      const d1 = new THREE.DirectionalLight(0xffffff, 2.2); d1.position.set(3,3,4); scene.add(d1);
-      const p1 = new THREE.PointLight(0x88aaff, 16, 22); p1.position.set(-3,-2,3); scene.add(p1);
-      const p2 = new THREE.PointLight(0xffffff, 8, 22); p2.position.set(2,-3,-2); scene.add(p2);
-
-      let tX=0, tY=0, rX=0, rY=0;
-      addEventListener('pointermove', e => { tX = e.clientX/innerWidth - 0.5; tY = e.clientY/innerHeight - 0.5; }, {passive:true});
-      addEventListener('resize', () => { renderer.setSize(W(),H()); camera.aspect = W()/H(); camera.updateProjectionMatrix(); });
-
-      let visible = true;
-      document.addEventListener('visibilitychange', () => { visible = !document.hidden; if(visible) loop(); });
-      function loop(){
-        if(!visible) return;
-        rX += (tY - rX) * 0.05; rY += (tX - rY) * 0.05;
-        if(!reduce){ mesh.rotation.y += 0.0035; mesh.rotation.x += 0.0016; wire.rotation.y -= 0.0024; wire.rotation.x -= 0.0012; }
-        group.rotation.x = rX * 0.5; group.rotation.y = rY * 0.6;
-        renderer.render(scene, camera);
-        requestAnimationFrame(loop);
-      }
-      loop();
-    } catch (err) {
-      mount.style.display = 'none';
-      console.warn('3D hero disabled:', err);
-    }
-  })();
-</script>
 
 <!-- ===== UI INTERACTIONS ===== -->
 <script>
