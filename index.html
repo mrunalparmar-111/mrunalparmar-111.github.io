@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mrunal Parmar — SOC Analyst &amp; Cybersecurity</title>
+<meta name="description" content="Mrunal Parmar — SOC Analyst with 4+ years in incident response, threat hunting, SIEM/SOAR/EDR, IAM, and cloud security. M.S. in Cybersecurity." />
+<meta name="author" content="Mrunal Parmar" />
+<meta name="theme-color" content="#0a0e16" />
+<meta property="og:title" content="Mrunal Parmar — SOC Analyst &amp; Cybersecurity" />
+<meta property="og:description" content="SOC Analyst specializing in incident response, threat hunting, SIEM/SOAR/EDR, IAM, and cloud security." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0e16'/%3E%3Cpath d='M50 14l28 10v22c0 17-12 30-28 40C34 76 22 63 22 46V24z' fill='none' stroke='%2322d3ee' stroke-width='6' stroke-linejoin='round'/%3E%3Ctext x='50' y='58' font-family='monospace' font-size='30' font-weight='700' fill='%23e8edf4' text-anchor='middle'%3EMP%3C/text%3E%3C/svg%3E" />
+<style>
+  :root{
+    --bg:#0a0e16;
+    --bg-2:#0d1320;
+    --surface:rgba(255,255,255,0.035);
+    --surface-2:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.09);
+    --border-strong:rgba(255,255,255,0.16);
+    --text:#e9eef6;
+    --text-dim:#9aa7bd;
+    --text-faint:#65718a;
+    --accent:#22d3ee;
+    --accent-2:#3b82f6;
+    --accent-soft:rgba(34,211,238,0.12);
+    --danger:#f87171;
+    --ok:#34d399;
+    --radius:18px;
+    --maxw:1120px;
+    --shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  /* ambient background */
+  .bg-orbs{position:fixed;inset:0;z-index:-2;overflow:hidden;pointer-events:none}
+  .orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.45}
+  .orb.a{width:560px;height:560px;background:radial-gradient(circle,#0e7490,transparent 70%);top:-180px;right:-120px}
+  .orb.b{width:520px;height:520px;background:radial-gradient(circle,#1e3a8a,transparent 70%);top:40%;left:-200px;opacity:.4}
+  .orb.c{width:480px;height:480px;background:radial-gradient(circle,#155e75,transparent 70%);bottom:-160px;right:10%;opacity:.3}
+  .bg-grid{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:54px 54px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 100%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 100%);
+  }
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent-soft);color:#fff}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;transition:background .3s,border-color .3s}
+  header.nav .bar{
+    max-width:var(--maxw);margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  header.nav.scrolled{
+    background:rgba(10,14,22,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
+  .brand .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(59,130,246,.14));border:1px solid var(--border-strong)}
+  .brand .logo svg{width:18px;height:18px;color:var(--accent)}
+  .navlinks{display:flex;gap:6px;align-items:center}
+  .navlinks a{padding:8px 14px;border-radius:10px;color:var(--text-dim);font-size:14px;font-weight:500;transition:color .2s,background .2s}
+  .navlinks a:hover{color:var(--text);background:var(--surface-2)}
+  .nav-cta{padding:9px 16px !important;color:var(--bg) !important;background:var(--accent);font-weight:600;border-radius:10px}
+  .nav-cta:hover{background:#67e8f9 !important}
+  .menu-btn{display:none;background:var(--surface-2);border:1px solid var(--border);color:var(--text);width:42px;height:42px;border-radius:11px;cursor:pointer;align-items:center;justify-content:center}
+  .menu-btn svg{width:20px;height:20px}
+
+  /* HERO */
+  .hero{padding:96px 0 70px;position:relative}
+  .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;
+    background:var(--surface);border:1px solid var(--border);font-size:13px;color:var(--text-dim);margin-bottom:26px}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(52,211,153,.18);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+  @media (prefers-reduced-motion:reduce){.pill .dot{animation:none}}
+  .hero h1{font-size:clamp(2.6rem,7vw,4.6rem);line-height:1.04;font-weight:800;letter-spacing:-1.5px}
+  .hero h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent-2) 80%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .role{font-size:clamp(1.05rem,2.6vw,1.45rem);color:var(--text);font-weight:600;margin-top:18px}
+  .hero .role .sep{color:var(--accent);margin:0 10px}
+  .hero p.lead{max-width:660px;color:var(--text-dim);font-size:1.05rem;margin-top:20px}
+  .hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:12px;font-weight:600;font-size:15px;cursor:pointer;transition:transform .2s,background .2s,border-color .2s;border:1px solid transparent}
+  .btn svg{width:18px;height:18px}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#05121a}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{background:var(--surface);border-color:var(--border);color:var(--text)}
+  .btn-ghost:hover{background:var(--surface-2);border-color:var(--border-strong);transform:translateY(-2px)}
+  .socials{display:flex;gap:12px;margin-top:30px}
+  .socials a{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);transition:.2s}
+  .socials a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+  .socials a svg{width:21px;height:21px}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:64px}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 20px;backdrop-filter:blur(8px)}
+  .stat .num{font-size:2rem;font-weight:800;background:linear-gradient(120deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-1px}
+  .stat .lbl{font-size:13px;color:var(--text-dim);margin-top:4px}
+
+  /* SECTION */
+  section{padding:84px 0;position:relative}
+  .sec-head{margin-bottom:48px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+  .kicker::before{content:"";width:26px;height:1px;background:var(--accent)}
+  .sec-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px;margin-top:14px}
+  .sec-head p{color:var(--text-dim);margin-top:12px;max-width:620px}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .25s,transform .25s,background .25s}
+  .card:hover{border-color:var(--border-strong);background:var(--surface-2)}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:300px 1fr;gap:48px;align-items:start}
+  .about .photo{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--border-strong);box-shadow:var(--shadow)}
+  .about .photo img{width:100%;display:block;aspect-ratio:1/1.08;object-fit:cover}
+  .about .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,14,22,.55))}
+  .about .photo .tag{position:absolute;left:14px;bottom:14px;z-index:2;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);background:rgba(10,14,22,.6);border:1px solid var(--border);padding:5px 11px;border-radius:8px;backdrop-filter:blur(6px)}
+  .about .body p{color:var(--text-dim);margin-bottom:16px;font-size:1.03rem}
+  .about .body p strong{color:var(--text);font-weight:600}
+  .focus-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px}
+  .focus{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:13px;background:var(--surface);border:1px solid var(--border)}
+  .focus .ic{flex-shrink:0;width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+  .focus .ic svg{width:19px;height:19px}
+  .focus h4{font-size:14px;font-weight:600}
+  .focus span{font-size:12.5px;color:var(--text-faint)}
+
+  /* SKILLS */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .skill-card{padding:26px}
+  .skill-card .top{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+  .skill-card .top .ic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent-soft),rgba(59,130,246,.1));color:var(--accent);border:1px solid var(--border)}
+  .skill-card .top .ic svg{width:21px;height:21px}
+  .skill-card .top h3{font-size:1.05rem;font-weight:700}
+  .tags{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:12.5px;padding:6px 12px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);font-family:'JetBrains Mono',monospace;transition:.2s}
+  .tag:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* EXPERIENCE */
+  .timeline{position:relative;display:flex;flex-direction:column;gap:22px}
+  .xp{padding:28px}
+  .xp .head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:baseline}
+  .xp .role{font-size:1.18rem;font-weight:700}
+  .xp .co{color:var(--accent);font-weight:600;font-size:.98rem;margin-top:3px}
+  .xp .date{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text-faint);background:var(--surface-2);border:1px solid var(--border);padding:5px 11px;border-radius:8px;white-space:nowrap}
+  .xp ul{list-style:none;margin-top:18px;display:flex;flex-direction:column;gap:10px}
+  .xp li{position:relative;padding-left:24px;color:var(--text-dim);font-size:.96rem}
+  .xp li::before{content:"";position:absolute;left:2px;top:9px;width:7px;height:7px;border-radius:2px;background:var(--accent);transform:rotate(45deg);opacity:.85}
+
+  /* PROJECTS */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .proj{padding:26px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .proj .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .proj .pic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent-soft),rgba(59,130,246,.12));border:1px solid var(--border);color:var(--accent)}
+  .proj .pic svg{width:23px;height:23px}
+  .proj .repo{color:var(--text-faint);transition:.2s}
+  .proj .repo:hover{color:var(--accent)}
+  .proj .repo svg{width:20px;height:20px}
+  .proj h3{font-size:1.12rem;font-weight:700;line-height:1.3}
+  .proj .meta{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent);margin-top:6px}
+  .proj p{color:var(--text-dim);font-size:.94rem;margin-top:12px;flex:1}
+  .proj .ptags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+  .proj .ptags span{font-size:11.5px;padding:4px 10px;border-radius:7px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-faint);font-family:'JetBrains Mono',monospace}
+
+  /* CREDENTIALS */
+  .creds{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cred-col h3{font-size:1.05rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+  .cred-col h3 svg{width:20px;height:20px;color:var(--accent)}
+  .cred-item{padding:18px 20px;margin-bottom:12px}
+  .cred-item .ci-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .cred-item .ci-name{font-weight:600;font-size:.98rem}
+  .cred-item .ci-sub{color:var(--text-dim);font-size:.88rem;margin-top:3px}
+  .badge{font-size:11px;font-family:'JetBrains Mono',monospace;padding:4px 9px;border-radius:7px;white-space:nowrap}
+  .badge.done{background:rgba(52,211,153,.12);color:var(--ok);border:1px solid rgba(52,211,153,.3)}
+  .badge.prog{background:rgba(251,191,36,.1);color:#fbbf24;border:1px solid rgba(251,191,36,.28)}
+  .badge.edu{background:var(--accent-soft);color:var(--accent);border:1px solid rgba(34,211,238,.3)}
+
+  /* CONTACT */
+  .contact-card{padding:54px 40px;text-align:center;background:linear-gradient(160deg,var(--surface-2),var(--surface));border:1px solid var(--border-strong)}
+  .contact-card h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-1px}
+  .contact-card p{color:var(--text-dim);max-width:520px;margin:16px auto 0}
+  .contact-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:34px}
+
+  footer{border-top:1px solid var(--border);padding:30px 0;margin-top:30px}
+  footer .frow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;color:var(--text-faint);font-size:13.5px}
+  footer .fsoc{display:flex;gap:14px}
+  footer .fsoc a{color:var(--text-faint);transition:.2s}
+  footer .fsoc a:hover{color:var(--accent)}
+  footer .fsoc svg{width:19px;height:19px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* responsive */
+  @media (max-width:880px){
+    .navlinks{display:none}
+    .navlinks.open{display:flex;position:absolute;top:68px;right:16px;left:16px;flex-direction:column;
+      background:rgba(13,19,32,.97);backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:16px;padding:12px}
+    .navlinks.open a{padding:12px 14px}
+    .menu-btn{display:grid}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .about{grid-template-columns:1fr;gap:28px}
+    .about .photo{max-width:280px}
+    .skills-grid,.proj-grid,.creds{grid-template-columns:1fr}
+    .focus-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:480px){
+    .stats{grid-template-columns:1fr 1fr}
+    .stat .num{font-size:1.6rem}
+    .hero{padding:70px 0 50px}
+    .btn{flex:1;justify-content:center}
+  }
+</style>
+</head>
+<body>
+<div class="bg-orbs"><div class="orb a"></div><div class="orb b"></div><div class="orb c"></div></div>
+<div class="bg-grid"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="bar">
+    <a href="#top" class="brand">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+      <span>Mrunal Parmar</span>
+    </a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="pill"><span class="dot"></span> Available for SOC / Security Analyst roles</div>
+    <h1>Defending enterprises,<br><span class="grad">one alert at a time.</span></h1>
+    <div class="role">SOC Analyst <span class="sep">/</span> Threat Hunter <span class="sep">/</span> IAM &amp; Cloud Security</div>
+    <p class="lead">SOC Analyst with 4+ years monitoring, investigating, and responding to security threats across telecom and enterprise environments — using SIEM, SOAR, and EDR to strengthen security posture and accelerate incident response.</p>
+    <div class="cta">
+      <a href="#contact" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg> Get in touch</a>
+      <a href="#projects" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6l2 3h12v13H2z"/></svg> View projects</a>
+    </div>
+    <div class="socials">
+      <a href="https://github.com/mrunalparmar-111" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/mrunalparmar/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.3a1.7 1.7 0 110-3.5 1.7 1.7 0 010 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.6 13 12.6 14.2V19h-3v-9h2.9v1.2h.1a3.2 3.2 0 012.9-1.6c3.1 0 3.7 2 3.7 4.7z"/></svg></a>
+      <a href="mailto:mrunalparmar222@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal"><div class="num">4+</div><div class="lbl">Years in security operations</div></div>
+      <div class="stat reveal"><div class="num">481K+</div><div class="lbl">Malicious emails analyzed</div></div>
+      <div class="stat reveal"><div class="num">100%</div><div class="lbl">C2 detection in APT lab</div></div>
+      <div class="stat reveal"><div class="num">M.S.</div><div class="lbl">Cybersecurity, DePaul</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">About</div>
+      <h2>Security analyst with a builder's mindset</h2>
+    </div>
+    <div class="about">
+      <div class="photo reveal">
+        <img src="mrunal.jpg" alt="Portrait of Mrunal Parmar" loading="lazy" />
+        <span class="tag mono">// SOC Analyst</span>
+      </div>
+      <div class="body reveal">
+        <p>I'm a <strong>SOC Analyst</strong> with 4+ years across telecom and enterprise environments, specializing in <strong>incident response, threat hunting, and security monitoring</strong>. Day to day, I investigate alerts in Microsoft Sentinel, Splunk ES, and Defender XDR; triage and contain incidents with CrowdStrike Falcon; and automate response with Cortex XSOAR and Splunk Phantom.</p>
+        <p>Beyond the console, I work deep in <strong>Identity &amp; Access Management</strong> — Active Directory, Azure AD, Okta, RBAC, MFA, SSO — and secure cloud-native environments on AWS and Azure. My work maps to <strong>MITRE ATT&amp;CK, NIST CSF, and ISO 27001</strong>. An M.S. in Cybersecurity and hands-on labs in penetration testing and AI-powered security round out how I think about defense.</p>
+        <div class="focus-grid">
+          <div class="focus"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span><div><h4>Incident Response</h4><span>Triage, contain, escalate</span></div></div>
+          <div class="focus"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><div><h4>Threat Hunting</h4><span>MITRE ATT&amp;CK driven</span></div></div>
+          <div class="focus"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></span><div><h4>IAM &amp; Access</h4><span>AD, Azure AD, Okta</span></div></div>
+          <div class="focus"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 001-8.9A6 6 0 006 9a4.5 4.5 0 00-1 8.9"/></svg></span><div><h4>Cloud Security</h4><span>AWS &amp; Azure, Zero Trust</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Capabilities</div>
+      <h2>Technical skills</h2>
+      <p>The tools, frameworks, and disciplines I use to detect, investigate, and respond to threats.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 3-3 3 3 5-6"/></svg></span><h3>Security Operations</h3></div>
+        <div class="tags"><span class="tag">SOC</span><span class="tag">Incident Response</span><span class="tag">Threat Hunting</span><span class="tag">Threat Intelligence</span><span class="tag">Malware Analysis</span><span class="tag">Phishing Investigation</span><span class="tag">IOC Analysis</span><span class="tag">Digital Forensics</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">Cyber Kill Chain</span><span class="tag">Vulnerability Mgmt</span></div>
+      </div>
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span><h3>SIEM / SOAR / EDR</h3></div>
+        <div class="tags"><span class="tag">Microsoft Sentinel</span><span class="tag">Splunk ES</span><span class="tag">Splunk SPL</span><span class="tag">Cortex XSOAR</span><span class="tag">Splunk Phantom</span><span class="tag">Defender XDR</span><span class="tag">CrowdStrike Falcon</span><span class="tag">Wazuh</span><span class="tag">Suricata IDS/IPS</span><span class="tag">ELK Stack</span><span class="tag">ServiceNow SecOps</span></div>
+      </div>
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg></span><h3>IAM &amp; Access Management</h3></div>
+        <div class="tags"><span class="tag">Active Directory</span><span class="tag">Azure AD / Entra ID</span><span class="tag">Okta</span><span class="tag">RBAC</span><span class="tag">MFA</span><span class="tag">SSO</span><span class="tag">Conditional Access</span><span class="tag">PAM</span><span class="tag">Access Reviews</span><span class="tag">Provisioning</span><span class="tag">SoD</span></div>
+      </div>
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 001-8.9A6 6 0 006 9a4.5 4.5 0 00-1 8.9"/></svg></span><h3>Cloud &amp; Infrastructure</h3></div>
+        <div class="tags"><span class="tag">AWS</span><span class="tag">Microsoft Azure</span><span class="tag">AWS IAM</span><span class="tag">GuardDuty</span><span class="tag">CloudTrail</span><span class="tag">Zero Trust</span><span class="tag">Endpoint Security</span><span class="tag">Firewalls</span><span class="tag">VPN</span><span class="tag">Hybrid Cloud</span></div>
+      </div>
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg></span><h3>Offensive &amp; Tooling</h3></div>
+        <div class="tags"><span class="tag">Kali Linux</span><span class="tag">Metasploit</span><span class="tag">Nmap</span><span class="tag">Burp Suite</span><span class="tag">Hashcat</span><span class="tag">Hydra</span><span class="tag">Mimikatz</span><span class="tag">Nessus</span><span class="tag">Wireshark</span><span class="tag">ModSecurity WAF</span><span class="tag">VMware ESXi</span></div>
+      </div>
+      <div class="card skill-card reveal">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6"/><path d="M8 6l-6 6 6 6"/></svg></span><h3>Programming &amp; AI Security</h3></div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">PowerShell</span><span class="tag">Bash</span><span class="tag">FastAPI</span><span class="tag">REST / JSON-RPC</span><span class="tag">Docker</span><span class="tag">Redis</span><span class="tag">Azure OpenAI</span><span class="tag">Anthropic Claude</span><span class="tag">LLM Security</span><span class="tag">Prompt Injection Defense</span><span class="tag">RoBERTa / NLP</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Experience</div>
+      <h2>Where I've defended</h2>
+    </div>
+    <div class="timeline">
+      <article class="card xp reveal">
+        <div class="head">
+          <div><div class="role">SOC Analyst</div><div class="co">AT&amp;T — United States</div></div>
+          <span class="date">Jan 2026 — Present</span>
+        </div>
+        <ul>
+          <li>Monitor and analyze security alerts in Microsoft Sentinel, Splunk, and Defender XDR to identify and investigate potential incidents.</li>
+          <li>Perform Level 2 incident triage, investigation, containment, and escalation following SOC procedures and SLAs.</li>
+          <li>Investigate endpoint threats, malware, phishing, and suspicious user activity using CrowdStrike Falcon EDR.</li>
+          <li>Execute automated response workflows with Cortex XSOAR playbooks, reducing manual effort and improving response times.</li>
+          <li>Hunt threats using MITRE ATT&amp;CK techniques and threat-intel feeds; tune SIEM correlation rules to cut false positives.</li>
+          <li>Validate vulnerability findings and prepare incident reports and root-cause analyses across security, cloud, and network teams.</li>
+        </ul>
+      </article>
+      <article class="card xp reveal">
+        <div class="head">
+          <div><div class="role">IT Support Technician</div><div class="co">DePaul University — College of Law</div></div>
+          <span class="date">Oct 2023 — Nov 2025</span>
+        </div>
+        <ul>
+          <li>Resolved 500+ Tier 1/2 IT and identity-access issues via ServiceNow and Jira under sub-24-hour SLA compliance.</li>
+          <li>Managed Active Directory provisioning, RBAC groups, and password resets; hardened 500+ devices with BitLocker, MFA, and Ivanti VPN.</li>
+          <li>Monitored endpoint security alerts and coordinated with the network team to isolate suspicious activity using Wireshark.</li>
+          <li>Acted as primary on-site support for faculty/staff across device provisioning, Microsoft 365, and AV/conferencing infrastructure.</li>
+        </ul>
+      </article>
+      <article class="card xp reveal">
+        <div class="head">
+          <div><div class="role">SOC Analyst</div><div class="co">Bharti Airtel — India</div></div>
+          <span class="date">May 2022 — Aug 2023</span>
+        </div>
+        <ul>
+          <li>Monitored and investigated alerts in Splunk ES and Microsoft Sentinel for a large-scale telecom environment.</li>
+          <li>Performed L1/L2 monitoring, triage, threat analysis, containment, and escalation per incident-response procedures.</li>
+          <li>Conducted log analysis and threat hunting with Splunk SPL, Windows Event Logs, Syslog, and endpoint telemetry.</li>
+          <li>Managed IAM lifecycle — provisioning, de-provisioning, access reviews — across Active Directory, Azure AD, and Okta.</li>
+          <li>Administered RBAC and least-privilege; ran access certifications, privileged-account reviews, and SoD validation.</li>
+          <li>Automated response with Splunk Phantom and ServiceNow SecOps; maintained NIST and ISO 27001 aligned documentation.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Projects</div>
+      <h2>Labs &amp; research</h2>
+      <p>Hands-on builds spanning detection engineering, red-team simulation, AI security, and automation.</p>
+    </div>
+    <div class="proj-grid">
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+          <a class="repo" href="https://github.com/mrunalparmar-111/Apt-detection-lab" target="_blank" rel="noopener" aria-label="View APT Detection Lab on GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg></a>
+        </div>
+        <h3>APT Detection Lab — Wazuh SIEM &amp; Suricata</h3>
+        <div class="meta mono">DePaul Capstone</div>
+        <p>Built a 4-VM enterprise lab on VMware ESXi simulating APT scenarios across the full Cyber Kill Chain — achieving 100% C2 detection. Forwarded alerts into Splunk via Universal Forwarder and mapped every detection to MITRE ATT&amp;CK.</p>
+        <div class="ptags"><span>Wazuh</span><span>Suricata</span><span>Splunk</span><span>NFQUEUE</span><span>MITRE ATT&amp;CK</span></div>
+      </article>
+
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg></span>
+        </div>
+        <h3>Non-Profit Cybersecurity Risk Assessment</h3>
+        <div class="meta mono">DePaul University · GRC</div>
+        <p>Led an end-to-end risk assessment for a Chicago non-profit — stakeholder interviews, physical security review, and IT asset analysis. Mapped risks to CIS Controls v8 and NIST SP 800-53 and presented a remediation roadmap to the Board.</p>
+        <div class="ptags"><span>CIS RAM IG1</span><span>NIST SP 800-53</span><span>Risk Register</span><span>Illinois PIPA</span></div>
+      </article>
+
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg></span>
+        </div>
+        <h3>Full-Scope Penetration Test</h3>
+        <div class="meta mono">DePaul University · Red Team</div>
+        <p>Internal enterprise-style pentest: exploited EternalBlue (MS17-010), escalated privileges via cron misconfig, and dumped credentials with Mimikatz. Cracked hashes with Hashcat and remediated XSS/SQLi using ModSecurity WAF.</p>
+        <div class="ptags"><span>Metasploit</span><span>Mimikatz</span><span>Hashcat</span><span>XSS / SQLi</span><span>ModSecurity</span></div>
+      </article>
+
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 013 3v1a3 3 0 01-3 3 3 3 0 01-3-3V5a3 3 0 013-3z"/><path d="M19 10a3 3 0 11-2 5M5 10a3 3 0 102 5M9 13h6"/></svg></span>
+        </div>
+        <h3>AI Social Engineering &amp; Deepfake Research</h3>
+        <div class="meta mono">Research</div>
+        <p>Simulated a full AI-driven attack chain — OSINT, ZPhisher campaigns, rogue-AP MITM via WiFiPumpkin3, and voice-cloning deepfakes. Analyzed 481K+ malicious emails with RoBERTa/RAIDAR to detect LLM-generated phishing patterns.</p>
+        <div class="ptags"><span>RoBERTa / NLP</span><span>WiFiPumpkin3</span><span>ZPhisher</span><span>DMARC</span><span>OSINT</span></div>
+      </article>
+
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span>
+          <a class="repo" href="https://github.com/mrunalparmar-111" target="_blank" rel="noopener" aria-label="View on GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg></a>
+        </div>
+        <h3>AI-Powered Multi-Agent Trading System</h3>
+        <div class="meta mono">Applied AI Security</div>
+        <p>Built a 13-agent autonomous system routing Claude, GPT-4o-mini, and Gemini by role. Hardened it with prompt-injection sanitization, an HMAC-authenticated kill switch, and Kelly-Criterion confidence calibration on a FastAPI + Redis backend.</p>
+        <div class="ptags"><span>FastAPI</span><span>Redis</span><span>Prompt-Injection Defense</span><span>HMAC</span><span>Multi-LLM</span></div>
+      </article>
+
+      <article class="card proj reveal">
+        <div class="ptop">
+          <span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="m7 9 3 2-3 2M13 13h4"/></svg></span>
+          <a class="repo" href="https://github.com/mrunalparmar-111/macOS-Control-MCP-Server-" target="_blank" rel="noopener" aria-label="View MCP Server on GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg></a>
+        </div>
+        <h3>Custom MCP Server Suite</h3>
+        <div class="meta mono">Automation · macOS Control</div>
+        <p>Developed a Model Context Protocol server letting Claude control macOS over JSON-RPC — exposing 7 system tools (shell, file I/O, Docker, Git status, diagnostics). Implemented the full MCP 2024-11-05 spec with zero external dependencies.</p>
+        <div class="ptags"><span>MCP</span><span>JSON-RPC</span><span>Python</span><span>Docker</span><span>Claude Desktop</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="kicker">Credentials</div>
+      <h2>Education &amp; certifications</h2>
+    </div>
+    <div class="creds">
+      <div class="cred-col reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 3 3 6 3s6-2 6-3v-5"/></svg> Education</h3>
+        <div class="card cred-item">
+          <div class="ci-top">
+            <div><div class="ci-name">M.S. in Cybersecurity</div><div class="ci-sub">DePaul University, Chicago, IL</div></div>
+            <span class="badge edu">Nov 2025</span>
+          </div>
+        </div>
+      </div>
+      <div class="cred-col reveal">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.5 13.5 7 22l5-3 5 3-1.5-8.5"/></svg> Certifications</h3>
+        <div class="card cred-item">
+          <div class="ci-top"><div class="ci-name">AWS Certified Cloud Practitioner</div><span class="badge done">Certified</span></div>
+        </div>
+        <div class="card cred-item">
+          <div class="ci-top"><div class="ci-name">CompTIA Security+</div><span class="badge prog">In Progress</span></div>
+        </div>
+        <div class="card cred-item">
+          <div class="ci-top"><div class="ci-name">CompTIA SecAI+ (CY0-001)</div><span class="badge prog">In Progress</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="card contact-card reveal">
+      <div class="kicker" style="justify-content:center">Contact</div>
+      <h2>Let's strengthen your security posture</h2>
+      <p>Open to SOC Analyst, Security Analyst, and IAM roles. Reach out — I'm quick to respond.</p>
+      <div class="contact-actions">
+        <a href="mailto:mrunalparmar222@gmail.com" class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg> mrunalparmar222@gmail.com</a>
+        <a href="https://www.linkedin.com/in/mrunalparmar/" target="_blank" rel="noopener" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.3a1.7 1.7 0 110-3.5 1.7 1.7 0 010 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.6 13 12.6 14.2V19h-3v-9h2.9v1.2h.1a3.2 3.2 0 012.9-1.6c3.1 0 3.7 2 3.7 4.7z"/></svg> LinkedIn</a>
+        <a href="https://github.com/mrunalparmar-111" target="_blank" rel="noopener" class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg> GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap frow">
+    <span>© <span id="year"></span> Mrunal Parmar · Built with care, secured by design.</span>
+    <div class="fsoc">
+      <a href="https://github.com/mrunalparmar-111" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.3-1.8-1.3-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2 0-.4-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.2 2.9.1 3.3.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg></a>
+      <a href="https://www.linkedin.com/in/mrunalparmar/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.3a1.7 1.7 0 110-3.5 1.7 1.7 0 010 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.6 13 12.6 14.2V19h-3v-9h2.9v1.2h.1a3.2 3.2 0 012.9-1.6c3.1 0 3.7 2 3.7 4.7z"/></svg></a>
+      <a href="mailto:mrunalparmar222@gmail.com" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navlinks = document.getElementById('navlinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navlinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open);
+  });
+  navlinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navlinks.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', false);
+  }));
+
+  // scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
